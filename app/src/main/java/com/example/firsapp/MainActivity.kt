@@ -78,6 +78,7 @@ class MainActivity : AppCompatActivity() {
         if(requestCode==REQEST_TAKE_PHOTO && resultCode== RESULT_OK){
             (data?.extras?.get("data") as? Bitmap)?.let {
                 binding.ivAvatar.setImageBitmap(it)
+                binding.ivAvatarmini.setImageBitmap(it)
             }
         }
     }
