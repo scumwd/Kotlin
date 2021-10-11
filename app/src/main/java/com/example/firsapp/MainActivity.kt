@@ -68,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         (intent.getParcelableExtra<Parcelable>(Intent.EXTRA_STREAM) as? Uri)?.let{
             val avatar = Drawable.createFromStream(contentResolver.openInputStream(it), it.toString())
             binding.ivAvatar.setImageDrawable(avatar)
+            binding.ivAvatarmini.setImageDrawable(avatar)
         }
     }
 
