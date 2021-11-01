@@ -21,7 +21,7 @@ class SecondActivity : AppCompatActivity() {
         val user: User = UserRepository.users.find { it.id ==id }!!
         with(binding){
             Glide.with(this@SecondActivity).load(user.url).into(ivPhoto)
-            tvId.text = "ID: ${user.id}"
+            tvIddd.text = "ID: ${user.id}"
             tvName.text = "Name: ${user.name}"
             tvDiscrip.text = "Discription: ${user.discrip}"
         }

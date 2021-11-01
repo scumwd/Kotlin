@@ -9,7 +9,7 @@ import com.bumptech.glide.RequestManager
 import com.example.firsapp.databinding.ItemUserBinding
 
 class UserHolder(
- private val binding:ItemUserBinding,
+ private val binding: ItemUserBinding,
  private val glide: RequestManager,
  private val action: (Int) -> Unit
 
