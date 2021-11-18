@@ -41,7 +41,7 @@ class SecondFragment : Fragment() {
                 }
                 setView(dialogLayout)
                 show()
-            }
+            } 
         }
     }
 
