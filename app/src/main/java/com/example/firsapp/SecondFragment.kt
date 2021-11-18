@@ -52,39 +52,22 @@ class SecondFragment : Fragment() {
             with(builder) {
                 setTitle("Заполните новый элемент")
                 setPositiveButton("OK") { dialog , wich ->
-                    var index: Int
-                    if(adapter.itemCount ==0)
+                    var index = 0
+                    if(adapter.itemCount ==0 && (position.text.toString().equals("") || position.text.toString().toInt()>adapter.itemCount) )
                         index =0
+                    else if(adapter.itemCount != 0 &&(position.text.toString().equals("") || position.text.toString().toInt()>adapter.itemCount ))
+                        index = adapter.itemCount
                     else
-                        index = adapter.itemCount-1
-                    if(position==null)
-                    {
-                        val item = Item(
-                            title.text.toString(),
-                            discrip.text.toString(),
-                            index
-                            )
-                        adapter.itemlist.add(item.position,item)
-                        adapter.notifyItemInserted(item.position)
+                        index = position.text.toString().toInt()
 
-                    }
-                    else
-                        if(position.text.toString().toInt()>adapter.itemCount){
-                            index = adapter.itemCount-1
-                            val item = Item(
-                                title.text.toString(),
-                                discrip.text.toString(),
-                                index
-                            )
-                            adapter.itemlist.add(item.position,item)
-                            adapter.notifyItemInserted(item.position)
-                        }
-                    val item = Item(
-                        title.text.toString(),
-                    discrip.text.toString(),
-                    position.text.toString().toInt())
-                    adapter.itemlist.add(item.position,item)
-                    adapter.notifyItemInserted(item.position)
+
+
+                    val item = Item(title.text.toString() ,
+                        discrip.text.toString() ,
+                        index
+                    )
+                    adapter.itemlist.add(index,item)
+                    adapter.notifyItemInserted(index)
 
 
                 }
