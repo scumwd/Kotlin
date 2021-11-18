@@ -1,6 +1,9 @@
 package com.example.firsapp
 
+import java.text.FieldPosition
+
 data class Item(
-    val title: String,
-    val discription: String
+    var title: String ,
+    var discription: String ,
+    var position: Int
 )

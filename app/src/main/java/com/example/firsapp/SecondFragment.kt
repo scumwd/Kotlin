@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.firsapp.databinding.ActivityMainBinding
 import com.example.firsapp.databinding.FragmentSecondBinding
 
@@ -18,21 +21,70 @@ private const val ARG_PARAM2 = "param2"
 class SecondFragment : Fragment() {
 
     lateinit var binding: FragmentSecondBinding
+    private val adapter = ItemAdapter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = FragmentSecondBinding.inflate(layoutInflater)
-
-        showDialogCastom()
+        init()
     }
 
+    private fun init() {
+        binding.apply {
+            rcItem.layoutManager = LinearLayoutManager(requireContext())
+            rcItem.adapter=adapter
+            btnAdd.setOnClickListener{
+                showDialogCastom()
+            }
+        }
+    }
+
+
+
+
     private fun showDialogCastom() {
-        binding.btnAdd.setOnClickListener {
+
             val builder = AlertDialog.Builder(requireContext())
             val inflater = layoutInflater
             val dialogLayout = inflater.inflate(R.layout.dialog_layout , null)
+            val title = dialogLayout.findViewById<EditText>(R.id.et_title)
+            val discrip = dialogLayout.findViewById<EditText>(R.id.et_discrip)
+            val position = dialogLayout.findViewById<EditText>(R.id.et_position)
             with(builder) {
                 setTitle("Заполните новый элемент")
                 setPositiveButton("OK") { dialog , wich ->
+                    var index: Int
+                    if(adapter.itemCount ==0)
+                        index =0
+                    else
+                        index = adapter.itemCount-1
+                    if(position==null)
+                    {
+                        val item = Item(
+                            title.text.toString(),
+                            discrip.text.toString(),
+                            index
+                            )
+                        adapter.itemlist.add(item.position,item)
+                        adapter.notifyItemInserted(item.position)
+
+                    }
+                    else
+                        if(position.text.toString().toInt()>adapter.itemCount){
+                            index = adapter.itemCount-1
+                            val item = Item(
+                                title.text.toString(),
+                                discrip.text.toString(),
+                                index
+                            )
+                            adapter.itemlist.add(item.position,item)
+                            adapter.notifyItemInserted(item.position)
+                        }
+                    val item = Item(
+                        title.text.toString(),
+                    discrip.text.toString(),
+                    position.text.toString().toInt())
+                    adapter.itemlist.add(item.position,item)
+                    adapter.notifyItemInserted(item.position)
 
 
                 }
@@ -41,8 +93,9 @@ class SecondFragment : Fragment() {
                 }
                 setView(dialogLayout)
                 show()
-            } 
-        }
+            }
+
+
     }
 
 
@@ -51,7 +104,7 @@ class SecondFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_second , container , false)
+        return binding.root
     }
 
     companion object {
