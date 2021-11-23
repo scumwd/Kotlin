@@ -11,13 +11,20 @@ import android.widget.EditText
 import com.google.android.material.timepicker.MaterialTimePicker
 import java.util.*
 import java.util.concurrent.TimeUnit
+import android.content.SharedPreferences
+
+
+
 
 
 class MainActivity : AppCompatActivity() {
 
     companion object{
-        private const val ALARM_REQUEST_CODE = 1000
+        const val ALARM_REQUEST_CODE = 1000
+        const val APP_PREFERENCES = "myAlaramScumwd"
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +37,10 @@ class MainActivity : AppCompatActivity() {
 
         val alarmManager: AlarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReciver::class.java)
+        val mySharedPreferences = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
 
         setAlarm.setOnClickListener {
+            val editor = mySharedPreferences.edit()
             val hour = if (!hour.text.toString().isEmpty())  hour.text.toString() else "0"
             val min = if (!min.text.toString().isEmpty())min.text.toString() else "0"
             val pendingIntent= PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE,intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -39,6 +48,7 @@ class MainActivity : AppCompatActivity() {
             calendar.set(Calendar.HOUR,hour.toInt())
             calendar.set(Calendar.MINUTE,min.toInt())
             val result: Long = calendar.timeInMillis
+            editor.putLong("time",calendar.timeInMillis)
             alarmManager.set(AlarmManager.RTC_WAKEUP, result, pendingIntent)
         }
         stopAlarm.setOnClickListener {
