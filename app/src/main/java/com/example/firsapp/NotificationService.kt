@@ -60,15 +60,15 @@ class NotificationService(
             .setContentTitle(title)
             .setShowWhen(false)
             .setAutoCancel(true)
-            .setContentText("Desc")
+            .setContentText("Wake up!")
             .setContentIntent(intent)
 
 
         manager.notify(1,builder.build())
     }
+
     private fun Context.getSoundUri(
         @RawRes id:Int
 
     )=Uri.parse("android.resourse://${packageName}/$id")
-
 }
