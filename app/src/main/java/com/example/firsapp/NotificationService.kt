@@ -37,7 +37,7 @@ class NotificationService(
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .setUsage(AudioAttributes.USAGE_NOTIFICATION)
                     .build()
-                val sound: Uri = context.getSoundUri(R.raw.wake_up)
+                val sound = context.getSoundUri(R.raw.wake_up)
                 setSound(sound, audioAttributes)
                 description =context.getString(R.string.notification_channel_desc)
                 lightColor = Color.BLUE
@@ -62,6 +62,7 @@ class NotificationService(
             .setAutoCancel(true)
             .setContentText("Wake up!")
             .setContentIntent(intent)
+            .setSound(context.getSoundUri(R.raw.wake_up))
 
 
         manager.notify(1,builder.build())
@@ -70,5 +71,5 @@ class NotificationService(
     private fun Context.getSoundUri(
         @RawRes id:Int
 
-    )=Uri.parse("android.resourse://${packageName}/$id")
+    )=Uri.parse("android.resource://${packageName}/$id")
 }

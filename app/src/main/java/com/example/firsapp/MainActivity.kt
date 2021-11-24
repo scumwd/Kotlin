@@ -47,9 +47,11 @@ class MainActivity : AppCompatActivity() {
             val calendar = Calendar.getInstance()
             calendar.set(Calendar.HOUR,hour.toInt())
             calendar.set(Calendar.MINUTE,min.toInt())
+            calendar.set(Calendar.SECOND, 0)
+            calendar.set(Calendar.MILLISECOND,0)
             val result: Long = calendar.timeInMillis
             editor.putLong("time",calendar.timeInMillis)
-            alarmManager.set(AlarmManager.RTC_WAKEUP, result, pendingIntent)
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, result, pendingIntent)
         }
         stopAlarm.setOnClickListener {
                 val pendingIntent = PendingIntent.getBroadcast(this, ALARM_REQUEST_CODE, Intent(this, AlarmReciver::class.java), PendingIntent.FLAG_NO_CREATE)
