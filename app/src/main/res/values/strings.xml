@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">FirsApp</string>
+    <string name="notification_channel_title">Alarm</string>
+    <string name="notification_channel_desc">Wake up!</string>
 </resources>
